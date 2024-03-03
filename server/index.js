@@ -10,8 +10,12 @@ const io = new SocketServer(server)
 io.on('connection', socket => {
     console.log('User connected' )
     
-    socket.on('message', (data) => {
-        socket.broadcast.emit('message', data)
+    socket.on('message', (body) => {
+        console.log(body);
+        socket.broadcast.emit('message', {
+            body,
+            from: socket.id.slice(6)
+        })
     })
 })
 

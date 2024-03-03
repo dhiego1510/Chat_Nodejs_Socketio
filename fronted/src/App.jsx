@@ -5,20 +5,30 @@ const socket = io("/")
 
 function App() {
   const [message, setMessages] = useState('')
-  const [chat, setChat] = useState([])
+  const [chat, setChat] = useState([ ])
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const newMessage = {
+      body: message,
+      from: 'Me '
+    }
+
+
+    setChat([...chat, newMessage])
     socket.emit('message', message)
   }
 
   useEffect(() => {
-    socket.on('message', message => {
-      console.log(message);
-      setChat([...chat, message])
-    })
+    socket.on('message', receiveMessage);
+  
+    return () => {
+      socket.off('message', receiveMessage);
+    } 
   }, [])
 
+  const receiveMessage = (message) => 
+    setChat(state => [...state, message])
 
   return (
     <div>
@@ -37,7 +47,8 @@ function App() {
       <ul>
         {
           chat.map( (message, i) => (
-            <li key={i}>{message}</li>
+            <li key={i}>
+              {message.from}: {message.body}</li>
           ))
         }
       </ul>
