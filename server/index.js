@@ -12,6 +12,9 @@ io.on('connection', socket => {
     
     socket.on('message', (body) => {
         console.log(body);
+        //store message in database
+
+        //send message to all clientes
         socket.broadcast.emit('message', {
             body,
             from: socket.id.slice(6)
