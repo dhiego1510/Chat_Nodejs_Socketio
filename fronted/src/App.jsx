@@ -47,7 +47,7 @@ function App() {
           {chat.map((message, i) => (
             <li
               key={i}
-              className={`my-2 p-2 table rounded-md bg-sky-700 ${
+              className={`my-2 p-2 table rounded-md  ${
                 message.from === "Me" ? "bg-sky-700 " : `bg-black ml-auto`
               }`}
             >

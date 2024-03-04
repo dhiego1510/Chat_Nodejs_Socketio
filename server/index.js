@@ -1,13 +1,8 @@
 import express from 'express'
 import http from 'http'
 import { Server as SocketServer } from 'socket.io'
-import { dirname, join } from 'path'
-import  { fileURLToPath } from 'url'
-
-import { PORT } from './config.js'
 
 const app = express()
-const __dirname = dirname(fileURLToPath(import.meta.url))
 const server = http.createServer(app)
 
 const io = new SocketServer(server)
@@ -27,7 +22,5 @@ io.on('connection', socket => {
     })
 })
 
-app.use(express.static(join(__dirname, '../fronted/dist')))
-
-server.listen(PORT)
-console.log('Server on por', PORT);
+server.listen(4000)
+console.log('Server on por', 4000);
